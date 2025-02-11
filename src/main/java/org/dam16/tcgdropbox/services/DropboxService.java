@@ -21,7 +21,7 @@ public class DropboxService {
      */
     public void uploadFileToDropbox(String filePath, String dropboxDestinationPath, String token) throws Exception {
         // Configurar el cliente de Dropbox con un identificador de la aplicación.
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("personasAppDam16").build();
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("TCGErcilla").build();
 
         // Crear una instancia de DbxClientV2 utilizando el token de acceso proporcionado.
         DbxClientV2 client = new DbxClientV2(config, token);
@@ -46,7 +46,7 @@ public class DropboxService {
     }
     public byte[] downloadFileFromDropbox(String dropboxFilePath, String token) throws IOException, DbxException {
         // Inicializar el cliente de Dropbox
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("myFirstApp").build();
+        DbxRequestConfig config = DbxRequestConfig.newBuilder("TCGErcilla").build();
         DbxClientV2 client = new DbxClientV2(config, token);
 
         // Descargar el archivo desde Dropbox
