@@ -216,5 +216,41 @@ public class ImagesController {
                 return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
             }
         }
+
+
+
     }
+
+
+    @GetMapping("/download/logo/{fileName}")
+    public ResponseEntity<byte[]> downloadImageLogo(@PathVariable String fileName) {
+        String dropboxFilePath = "/logo/" + fileName; // Ruta del archivo en Dropbox
+        try {
+            byte[] imageBytes = dropboxService.downloadFileFromDropbox(dropboxFilePath, token);
+            if (imageBytes == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(imageBytes);
+        }catch (Exception e) {
+            token = dropboxTokenGeneratorService.getAccessToken();
+            if(token == null){
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            }
+            try{
+                byte[] imageBytes = dropboxService.downloadFileFromDropbox(dropboxFilePath, token);
+
+                if (imageBytes == null) {
+                    return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                }
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .body(imageBytes);
+            }catch (Exception ex){
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            }
+        }
+}
 }
